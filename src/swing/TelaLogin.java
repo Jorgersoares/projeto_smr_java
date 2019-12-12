@@ -2,7 +2,7 @@
 /**IFPB - Curso SI - Disciplina de PERSISTENCIA DE OBJETOS
  * @author Prof Fausto Ayres
  */
-package aplicacao_swing;
+package swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

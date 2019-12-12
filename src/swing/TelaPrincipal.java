@@ -1,4 +1,4 @@
-package aplicacao_swing;
+package swing;
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Programa��o Orientada a Objetos
@@ -28,21 +28,13 @@ import fachada.Fachada;
 public class TelaPrincipal {
 	private JFrame frame;
 	private JLabel label;
-	private JMenu mnPrateleira;
-	private JMenuItem mntmCriar;
-	private JMenuItem mntmListar_1;
-	private JMenuItem mntmInserirProduto;
-	private JMenuItem mntmRemoverProduto;
 	private JMenu mnUsuario;
 	private JMenuItem menuItem;
 	private JMenuItem menuItem_1;
 	private JMenuItem menuItem_2;
 	private JMenuItem menuItem_3;
-	private JMenu mnProduto;
-	private JMenuItem mntmCadastrar;
-	private JMenuItem mntmApagar;
-	private JMenuItem mntmListar;
-
+	private JMenu mnMensagem;
+	private JMenuItem mnEnviar;
 
 	/**
 	 * Launch the application.
@@ -113,96 +105,24 @@ public class TelaPrincipal {
 		frame.setJMenuBar(menuBar);
 
 		//-------------MENU-----------------------------------
-		mnProduto = new JMenu("Produto");
-		menuBar.add(mnProduto);
+		mnMensagem = new JMenu("Opções Mensagem");
+		menuBar.add(mnMensagem);
 
-		mntmCadastrar = new JMenuItem("Cadastrar");
-		mntmCadastrar.addActionListener(new ActionListener() {
+		mnEnviar = new JMenuItem("Enviar nova mensagem");
+		mnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Fachada.getLogado()==null)
 					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
+				
 				else {
 					TelaCadastroProduto j = new TelaCadastroProduto();
 					j.setVisible(true);
 				}
 			}
 		});
-		mnProduto.add(mntmCadastrar);
+		mnMensagem.add(mnEnviar);
 
-		mntmListar = new JMenuItem("Listar");
-		mntmListar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TelaListagem j = new TelaListagem();
-				j.setVisible(true);
-			}
-		});
-
-		mntmApagar = new JMenuItem("Apagar");
-		mntmApagar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(Fachada.getLogado()==null)
-					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
-				else {
-					TelaApagarProduto j = new TelaApagarProduto();
-					j.setVisible(true);
-				}
-			}
-		});
-		mnProduto.add(mntmApagar);
-		mnProduto.add(mntmListar);
-
-		//-------------MENU-----------------------------------
-		mnPrateleira = new JMenu("Prateleira");
-		menuBar.add(mnPrateleira);
-
-		mntmCriar = new JMenuItem("Criar");
-		mntmCriar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(Fachada.getLogado()==null)
-					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
-				else {
-					TelaCadastroPrateleira j = new TelaCadastroPrateleira();
-					j.setVisible(true);
-				}
-			}
-		});
-		mnPrateleira.add(mntmCriar);
-
-		mntmListar_1 = new JMenuItem("Listar");
-		mntmListar_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaListagem j = new TelaListagem();
-				j.setVisible(true);
-			}
-		});
-		mnPrateleira.add(mntmListar_1);
-
-		mntmInserirProduto = new JMenuItem("Inserir produto");
-		mntmInserirProduto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(Fachada.getLogado()==null)
-					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
-				else {
-					TelaProdutoPrateleira j = new TelaProdutoPrateleira();
-					j.setVisible(true);
-				}
-			}
-		});
-		mnPrateleira.add(mntmInserirProduto);
-
-		mntmRemoverProduto = new JMenuItem("Remover produto");
-		mntmRemoverProduto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(Fachada.getLogado()==null)
-					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
-				else {
-					TelaProdutoPrateleira j = new TelaProdutoPrateleira();
-					j.setVisible(true);
-				}
-			}
-		});
-		mnPrateleira.add(mntmRemoverProduto);
-
+		
 		//-------------MENU-----------------------------------
 		JMenu mnConsulta = new JMenu("Consulta");
 		menuBar.add(mnConsulta);

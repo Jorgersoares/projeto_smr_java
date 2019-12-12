@@ -1,4 +1,4 @@
-package aplicacao_swing;
+package swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class TelaConsulta extends JFrame {
 					ArrayList<Prateleira> lista1 = Fachada.consultarPrateleirasVazias();
 					texto = "Listagem de prateleiras vazias: \n";
 					if (lista1.isEmpty())
-						texto += "não existe";
+						texto += "nï¿½o existe";
 					else 	
 						for(Prateleira p: lista1) 
 							texto +=  p + "\n"; 
@@ -90,7 +90,7 @@ public class TelaConsulta extends JFrame {
 				ArrayList<Produto> lista1 = Fachada.consultarProdutosSemPrateleira();
 				texto = "Listagem de produtos sem prateleira: \n";
 				if (lista1.isEmpty())
-					texto += "não tem\n";
+					texto += "nï¿½o tem\n";
 				else 	
 					for(Produto p: lista1) 
 						texto +=  p + "\n"; 
@@ -117,7 +117,7 @@ public class TelaConsulta extends JFrame {
 				ArrayList<Prateleira> resultado = Fachada.consultarPrateleiras3Produtos();
 				String texto = "Listagem de prateleiras com 3 produtos: \n";
 				if (resultado.isEmpty())
-					texto += "não existe";
+					texto += "nï¿½o existe";
 				else 	
 					for(Prateleira p: resultado) 
 						texto +=  p + "\n"; 

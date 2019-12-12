@@ -1,4 +1,4 @@
-package aplicacao_swing;
+package swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -1,4 +1,4 @@
-package aplicacao_swing;
+package swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class TelaListagem extends JFrame {
 					
 					String texto = "Listagem de prateleiras: \n";
 					if (lista.isEmpty())
-						texto += "não tem prateleira cadastrada\n";
+						texto += "nï¿½o tem prateleira cadastrada\n";
 					else 
 						for(Prateleira p: lista) 
 							texto +=  p + "\n"; 
@@ -95,7 +95,7 @@ public class TelaListagem extends JFrame {
 					
 					texto = "Listagem de produtos: \n";
 					if (lista.isEmpty())
-						texto += "não tem produto cadastrado\n";
+						texto += "nï¿½o tem produto cadastrado\n";
 					else 	
 						for(Produto p: lista) 
 							texto +=  p + "\n"; 
@@ -118,7 +118,7 @@ public class TelaListagem extends JFrame {
 				
 				texto = "Listagem de usuarios: \n";
 				if (lista.isEmpty())
-					texto += "não tem usuario cadastrado\n";
+					texto += "nï¿½o tem usuario cadastrado\n";
 				else 	
 					for(Usuario p: lista) 
 						texto +=  p + "\n"; 
