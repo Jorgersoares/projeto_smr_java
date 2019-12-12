@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Fachada;
-import modelo.Produto;
+import modelo.Mensagem;
 
 public class TelaEnviarMensagem extends JFrame {
 
@@ -27,7 +27,8 @@ public class TelaEnviarMensagem extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
+		
+		/*
 		public static void main(String[] args) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -40,6 +41,7 @@ public class TelaEnviarMensagem extends JFrame {
 				}
 			});
 		}
+		*/
 
 	/**
 	 * Create the frame.
@@ -80,12 +82,12 @@ public class TelaEnviarMensagem extends JFrame {
 					if(textField.getText().isEmpty() || textField_1.getText().isEmpty())
 						lblmsg.setText("campo vazio");
 					else {
-						String nome = textField.getText();
-						double preco = Double.parseDouble(textField_1.getText());
 						
-						Produto p = Fachada.cadastrarProduto(nome, preco);
 						
-						lblmsg.setText("cadastrado nome="+p.getNome());
+						String email = textField.getText();
+						String content = textField_1.getText();
+						Fachada.enviarMensagem(email, content);
+						lblmsg.setText("Mensagem enviada com sucesso!");
 						textField.setText("");
 						textField_1.setText("");
 						textField.requestFocus();

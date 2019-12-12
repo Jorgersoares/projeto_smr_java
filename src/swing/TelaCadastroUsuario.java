@@ -10,8 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Fachada;
-import modelo.Produto;
-import modelo.Usuario;
+import modelo.Pessoa;
 
 import javax.swing.JPasswordField;
 
@@ -24,6 +23,8 @@ public class TelaCadastroUsuario extends JFrame {
 	private JButton button;
 	private JLabel lblmsg;
 	private JPasswordField passwordField;
+	private JLabel label;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -48,7 +49,7 @@ public class TelaCadastroUsuario extends JFrame {
 		setTitle("Cadastrar Usuario");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 304, 127);
+		setBounds(100, 100, 304, 214);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,9 +60,18 @@ public class TelaCadastroUsuario extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-				passwordField = new JPasswordField();
-				passwordField.setBounds(72, 36, 86, 20);
-				contentPane.add(passwordField);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(72, 36, 86, 20);
+		contentPane.add(passwordField);
+				
+		textField_1 = new JTextField();
+		textField_1.setBounds(72, 63, 139, 19);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		label = new JLabel("Email");
+		label.setBounds(10, 65, 66, 15);
+		contentPane.add(label);		
 
 		lblNome = new JLabel("Nome");
 		lblNome.setBounds(10, 14, 46, 14);
@@ -72,7 +82,7 @@ public class TelaCadastroUsuario extends JFrame {
 		contentPane.add(lblPreco);
 
 		lblmsg = new JLabel("");
-		lblmsg.setBounds(10, 69, 273, 14);
+		lblmsg.setBounds(10, 101, 273, 14);
 		contentPane.add(lblmsg);
 
 		button = new JButton("Cadastrar");
@@ -82,13 +92,15 @@ public class TelaCadastroUsuario extends JFrame {
 					if(textField.getText().isEmpty() )
 						lblmsg.setText("campo vazio");
 					else {
-						String email = textField.getText();
+						String nome = textField.getText();
+						String email = textField_1.getText();
 						String senha = new String( passwordField.getPassword() );
-						Usuario usuario = Fachada.cadastrarUsuario(email,senha);
+						Pessoa usuario = Fachada.cadastrarPessoa(email,senha,nome);
 						lblmsg.setText("cadastrou: "+usuario.getEmail());
 						textField.setText("");
 						passwordField.setText("");
 						textField.requestFocus();
+						textField_1.setText("");
 					}
 				}
 				catch(Exception erro){
@@ -96,7 +108,9 @@ public class TelaCadastroUsuario extends JFrame {
 				}
 			}
 		});
-		button.setBounds(168, 30, 115, 23);
+		button.setBounds(90, 149, 115, 23);
 		contentPane.add(button);
+		
+		
 	}
 }

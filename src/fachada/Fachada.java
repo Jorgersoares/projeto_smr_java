@@ -44,9 +44,6 @@ public class Fachada {
 	
 	
 	public static ArrayList<Pessoa> listarPessoas(String termo) throws Exception {
-		if(repo.localizarPessoa(termo).isEmpty()) {
-			throw new Exception("Não há nenhum nome de pessoa com esse termo ou não há ninguem cadastrado!");
-		}
 		return repo.localizarPessoa(termo);
 	}
 	
@@ -62,7 +59,7 @@ public class Fachada {
 				throw new Exception("Ultrapassa 200 caracteres");
 			
 			for(Pessoa p: repo.localizarPessoa("")) {
-				if(p.getEmail() == emaildest) {
+				if(p.getEmail().equals(emaildest)) {
 					Mensagem new_message = new Mensagem(
 							logada,
 							p,
@@ -122,14 +119,15 @@ public class Fachada {
 		throw new Exception("Esta mensagem não existe!");
 	}
 	
-	public static ArrayList<Mensagem> espionarMensagens(String termo) throws Exception {
+	public static ArrayList<Mensagem> espionarMensagens(String termo) {
 		if(Fachada.obterLogada().getClass().getSimpleName().equals("Administrador")) {
 			return repo.localizarMensagem(termo);
 		}
 		return null;
 	}
 	
-	public static ArrayList<Pessoa> relatorio1() throws Exception {
+	public static ArrayList<Pessoa> relatorio1(){
+		
 		ArrayList<Pessoa> pessoas = new ArrayList<>();
 		
 		for(Pessoa p : repo.localizarPessoa("")) {
@@ -137,25 +135,23 @@ public class Fachada {
 				pessoas.add(p);
 			}
 		}
-		
-		if(pessoas.isEmpty()) {
-			throw new Exception("Não existem pessoas que não enviaram mensagens!");
-		}
 		return pessoas;
 	}
 	
-	public static ArrayList<Mensagem> relatorio2() throws Exception {
-		ArrayList<Mensagem> msgs = new ArrayList<>();
-		
-		for(Mensagem m : repo.localizarMensagem("")) {
-			if(m.getEmitente().equals(m.getDestinatario())) {
-				msgs.add(m);
+	public static ArrayList<Mensagem> relatorio2() {
+		if(Fachada.obterLogada().getClass().getSimpleName().equals("Administrador")) {
+			ArrayList<Mensagem> msgs = new ArrayList<>();
+			
+			for(Mensagem m : repo.localizarMensagem("")) {
+				if(m.getEmitente().equals(m.getDestinatario())) {
+					msgs.add(m);
+				}
 			}
+			
+			return msgs;
 		}
-		
-		if(msgs.isEmpty()) {
-			throw new Exception("Não existem mensagens com remetente igual a destinatario");
+		else {
+			return null;
 		}
-		return msgs;
 	}
 }

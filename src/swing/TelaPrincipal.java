@@ -22,19 +22,28 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import aplicacao_console.TesteConsole;
 import fachada.Fachada;
 
 public class TelaPrincipal {
 	private JFrame frame;
 	private JLabel label;
+	
 	private JMenu mnUsuario;
 	private JMenuItem menuItem;
 	private JMenuItem menuItem_1;
 	private JMenuItem menuItem_2;
 	private JMenuItem menuItem_3;
+	private JMenuItem menuItem_4;
+	private JMenuItem menuItem_5;
+	
 	private JMenu mnMensagem;
 	private JMenuItem mnEnviar;
+	private JMenuItem mnApagar;
+	
+	private JMenu mnCaixa;
+	
+	private JMenu mnAdmin;
+	
 
 	/**
 	 * Launch the application.
@@ -69,19 +78,8 @@ public class TelaPrincipal {
 
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowOpened(WindowEvent arg0) {
-				try{
-					//  pre-cadastro
-					TesteConsole teste = new TesteConsole();
-					teste.cadastrar();
-					//nenhum usuario esta logado
-				}catch(Exception e){
-					System.out.println(e.getMessage());
-				}
-			}
-			@Override
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(null, "at� breve !");
+				JOptionPane.showMessageDialog(null, "Até breve !");
 			}
 		});
 
@@ -89,33 +87,27 @@ public class TelaPrincipal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		/*
-		//imagem de fundo
-		label = new JLabel("");
-		label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/imagem1.jpg"));
-		imagem = new ImageIcon(imagem.getImage().getScaledInstance(label.getWidth(),label.getHeight(), Image.SCALE_DEFAULT));
-		label.setIcon(imagem);
-		frame.getContentPane().add(label);
-		frame.setResizable(false);
-		*/
 
 		//-------------BARRA DE MENU-----------------------------------
+		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 
 		//-------------MENU-----------------------------------
+		
 		mnMensagem = new JMenu("Opções Mensagem");
+		
 		menuBar.add(mnMensagem);
 
 		mnEnviar = new JMenuItem("Enviar nova mensagem");
 		mnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(Fachada.getLogado()==null)
+				
+				if(Fachada.obterLogada()==null)
 					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
 				
 				else {
-					TelaCadastroProduto j = new TelaCadastroProduto();
+					TelaEnviarMensagem j = new TelaEnviarMensagem();
 					j.setVisible(true);
 				}
 			}
@@ -123,17 +115,38 @@ public class TelaPrincipal {
 		mnMensagem.add(mnEnviar);
 
 		
-		//-------------MENU-----------------------------------
-		JMenu mnConsulta = new JMenu("Consulta");
-		menuBar.add(mnConsulta);
-		mnConsulta.addMouseListener(new MouseAdapter() {
+		mnApagar = new JMenuItem("Apagar mensagem");
+		mnApagar.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				TelaConsulta j = new TelaConsulta();
-				j.setVisible(true);
+			public void actionPerformed(ActionEvent arg0) {
+				if(Fachada.obterLogada()==null)
+					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
+				else {
+					TelaApagar j = new TelaApagar();
+					j.setVisible(true);
+				}
+				
 			}
 		});
-
+		
+		mnMensagem.add(mnApagar);
+		
+		//-------------MENU-----------------------------------
+		
+		mnCaixa = new JMenu("Consultar caixas");
+		menuBar.add(mnCaixa);
+		mnCaixa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(Fachada.obterLogada()==null)
+					JOptionPane.showMessageDialog(frame, "voce precisa se logar");
+				else {
+					TelaCx j = new TelaCx();
+					j.setVisible(true);
+				}
+			}
+		});
+		
 		//-------------MENU-----------------------------------
 		mnUsuario = new JMenu("Usuario");
 		menuBar.add(mnUsuario);
@@ -173,6 +186,24 @@ public class TelaPrincipal {
 			}
 		});
 		mnUsuario.add(menuItem_3);
+		
+		menuItem_4 = new JMenuItem("Cadastrar Admin");
+		menuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaCadastroAdmin j = new TelaCadastroAdmin();
+				j.setVisible(true);
+			}
+		});
+		mnUsuario.add(menuItem_4);
+		
+		menuItem_5 = new JMenuItem("Relatorios");
+		menuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaRelatorio j = new TelaRelatorio();
+				j.setVisible(true);
+			}
+		});
+		mnUsuario.add(menuItem_5);
 
 
 	}

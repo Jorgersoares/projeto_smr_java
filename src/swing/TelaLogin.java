@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Fachada;
-import modelo.Usuario;
+import modelo.Pessoa;
 
 public class TelaLogin extends JFrame {
 	private JPanel contentPane;
@@ -91,7 +91,7 @@ public class TelaLogin extends JFrame {
 				try {
 					String email = textField.getText();
 					String senha = new String( passwordField.getPassword() );
-					Usuario usuario = Fachada.login(email,senha);
+					Pessoa usuario = Fachada.login(email,senha);
 					if (usuario!=null)
 						label_2.setText("bemvindo: "+usuario.getEmail());
 					else
@@ -117,17 +117,7 @@ public class TelaLogin extends JFrame {
 		button_1 = new JButton("logoff");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					String nome = textField.getText();
-					String senha = new String( passwordField.getPassword() );
-					Usuario usuario = Fachada.logoff(nome,senha);
-					if (usuario!=null)
-						label_2.setText("Tchau: "+usuario.getEmail());
-					else
-						label_2.setText("tente novamente ");
-				} catch (Exception e) {
-					label_2.setText(e.getMessage());
-				}
+				Fachada.logoff();
 			}
 		});
 		button_1.setBounds(175, 49, 86, 23);

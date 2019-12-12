@@ -14,40 +14,40 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Fachada;
-import modelo.Prateleira;
-import modelo.Produto;
-import modelo.Usuario;
+import modelo.Pessoa;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class TelaListagem extends JFrame {
 
 	private JPanel contentPane;
 	private JTextArea textArea;
 	private JButton button1;
-	private JButton button2;
-	private JButton button;
+	private JTextField textField;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TelaListagem frame = new TelaListagem();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	//	public static void main(String[] args) {
+	//		EventQueue.invokeLater(new Runnable() {
+	//			public void run() {
+	//				try {
+	//					TelaListagem frame = new TelaListagem();
+	//					frame.setVisible(true);
+	//				} catch (Exception e) {
+	//					e.printStackTrace();
+	//				}
+	//			}
+	//		});
+	//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public TelaListagem() {
-		
-		setTitle("Listagem");
+
+		setTitle("Listagem de pessoas");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 242);		
@@ -56,77 +56,48 @@ public class TelaListagem extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		button1 = new JButton("Listar Prateleira");
-		button1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					ArrayList<Prateleira> lista = Fachada.listarPrateleiras();
-					
-					String texto = "Listagem de prateleiras: \n";
-					if (lista.isEmpty())
-						texto += "n�o tem prateleira cadastrada\n";
-					else 
-						for(Prateleira p: lista) 
-							texto +=  p + "\n"; 
-
-					textArea.setText(texto);
-				}
-				catch(Exception erro){
-					JOptionPane.showMessageDialog(null,erro.getMessage());
-				}
-			}
-		});
-		button1.setBounds(63, 180, 115, 23);
-		contentPane.add(button1);
-		
 		textArea = new JTextArea();		
 		JScrollPane scroll = new JScrollPane(textArea);
 		scroll.setBounds(24, 29, 510, 140);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		contentPane.add(scroll);
-		
-		button2 = new JButton("Listar Produto");
-		button2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try{
-					String texto;
-					ArrayList<Produto> lista = Fachada.listarProdutos();
-					
-					texto = "Listagem de produtos: \n";
-					if (lista.isEmpty())
-						texto += "n�o tem produto cadastrado\n";
-					else 	
-						for(Produto p: lista) 
-							texto +=  p + "\n"; 
 
-					textArea.setText(texto);
-				}
-				catch(Exception erro){
-					JOptionPane.showMessageDialog(null,erro.getMessage());
+		textField = new JTextField();
+		textField.setBounds(167, 179, 210, 19);
+		contentPane.add(textField);
+		textField.setColumns(10);
+
+		label = new JLabel("Termo da pesquisa");
+		label.setBounds(24, 181, 136, 15);
+		contentPane.add(label);
+
+		button1 = new JButton("Listar ");
+		button1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String termo = textField.getText();
+				ArrayList<Pessoa> pessoas;
+				String text = "";
+				try {
+					pessoas = Fachada.listarPessoas(termo);
+					for(Pessoa p : pessoas) {
+						text += p + "\n";
+					}
+					if(text.equals("")) {
+						JOptionPane.showMessageDialog(null, "Não há ninguem com este termo!");
+					}
+					else {
+						textArea.setText(text);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
-		button2.setBounds(220, 180, 115, 23);
-		contentPane.add(button2);
-		
-		button = new JButton("Listar Usuario");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String texto;
-				ArrayList<Usuario> lista = Fachada.listarUsuarios();
-				
-				texto = "Listagem de usuarios: \n";
-				if (lista.isEmpty())
-					texto += "n�o tem usuario cadastrado\n";
-				else 	
-					for(Usuario p: lista) 
-						texto +=  p + "\n"; 
+		button1.setBounds(389, 177, 145, 23);
+		contentPane.add(button1);
 
-				textArea.setText(texto);
-			}
-		});
-		button.setBounds(364, 180, 115, 23);
-		contentPane.add(button);
+
 	}
 }
